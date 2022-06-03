@@ -18,9 +18,23 @@ function solveEquation(a, b, c) {
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
   let totalAmount;
-    console.log(typeof(percent));
-    console.log(Number(percent));
-  // код для задачи №2 писать здесь
+if ((percent > 0)&&(contribution > 0)&&(amount > 0)&&((date - Date.now()) > 0)) {
+  /* if ((!isNaN(Number(percent)))&&(!isNaN(Number(contribution)))&&(!isNaN(Number(amount)))) */
+  const body = amount - contribution;
+  const monthCount = Math.ceil((date - Date.now()) / 1000 / 3600 /24 / 30);
+  const monthPercent = percent / 1200;
+  const payment = body*(monthPercent + (monthPercent / (Math.pow((1+monthPercent),monthCount) - 1)));
+  totalAmount = monthCount * payment;
+  totalAmount = totalAmount.toFixed(2);
+  console.log(totalAmount);
+}
+
+else {
+
+  console.log('Значения введены неверно')
+  
+}
+
 
   return totalAmount;
 }
