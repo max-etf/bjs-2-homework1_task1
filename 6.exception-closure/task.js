@@ -29,7 +29,7 @@ class Triangle {
         this.b = b;
         this.c = c; */
         if (((a + b) < c)||((b + c) < a)||((a + c) < b)) {
-            let error = "Треугольник с такими сторонами не существует";
+            let error = new Error("Треугольник с такими сторонами не существует");
             throw error;
         }
         else {
