@@ -1,72 +1,40 @@
 class PrintEditionItem {
-/*     name
-    releaseDate
-    pagesCount
-    state
-    type */
 
-    constructor (name, releaseDate, pagesCount, state=100,type=null)
+    constructor (name, releaseDate, pagesCount, _state=100,type=null)
     {
        this.name = name; 
        this.releaseDate = releaseDate;
        this.pagesCount = pagesCount;
-       this.state = state;
+       this.state = _state;
        this.type = type;
     }
 
     fix() {
         /* this.state = this.state*1.5 ;
         if (this.state > 100) this.state = 100; */
-        this.Status = this.state*1.5
+        this.state = this.state*1.5
     }
 
-    set Status(num){
-        this.state = num ;
-        if (num < 0) this.state = 0 ;
-        if (num > 100) this.state = 100 ;  
+    set state(num){
+        this._state = num ;
+        if (num < 0) this._state = 0 ;
+        if (num > 100) this._state = 100 ;  
     }
     
-    get Status() {
-        return this.state;
+    get state() {
+        return this._state;
     }
 
 }
-
-/* const sherlock1 = new PrintEditionItem(
-    "Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе",
-    2019,
-    1008
-  );
-  
-  console.log(sherlock1.releaseDate); //2019
-  console.log(sherlock1.state); //100
-  sherlock1.fix();
-  console.log(sherlock1.state); //100
-  sherlock1.Status = 50;
-  console.log(sherlock1.state);
-  console.log(sherlock1.Status);
-  sherlock1.fix();
-  console.log(sherlock1.state); */
-
   class Magazine extends PrintEditionItem {
     constructor (name, releaseDate, pagesCount, state=100,type='magazine'){
        super (name, releaseDate, pagesCount, state,type)
- /*       this.name = name; 
-       this.releaseDate = releaseDate;
-       this.pagesCount = pagesCount;
-       this.state = state;
-       this.type = type; */
     }
   }
 
   class Book extends PrintEditionItem {
     constructor (author,name, releaseDate, pagesCount, state=100,type='book'){
        super (name, releaseDate, pagesCount, state,type)
-       /*  this.name = name; 
-       this.releaseDate = releaseDate;
-       this.pagesCount = pagesCount;
-       this.state = state;
-       this.type = type; */
        this.author = author;
     }
   }
@@ -75,24 +43,12 @@ class PrintEditionItem {
   class NovelBook extends Book {
     constructor (author,name, releaseDate, pagesCount, state=100,type='novel'){
         super (author, name, releaseDate, pagesCount, state,type)
-        /*    this.name = super.name; 
-        this.releaseDate = releaseDate;
-        this.pagesCount = pagesCount;
-        this.state = state;
-        this.type = type;
-        this.author = author; */
      }
   }
 
   class FantasticBook extends Book {
     constructor (author,name, releaseDate, pagesCount, state=100,type='fantastic'){
-        super (author, name, releaseDate, pagesCount, state,type)/* 
-        this.name = name; 
-        this.releaseDate = releaseDate;
-        this.pagesCount = pagesCount;
-        this.state = state;
-        this.type = type;
-        this.author = author; */
+        super (author, name, releaseDate, pagesCount, state,type)
      }
   }
 
@@ -100,26 +56,8 @@ class PrintEditionItem {
   class DetectiveBook extends Book {
     constructor (author,name, releaseDate, pagesCount, state=100,type='detective'){
         super (author, name, releaseDate, pagesCount, state,type)
-       /*  this.name = name; 
-        this.releaseDate = releaseDate;
-        this.pagesCount = pagesCount;
-        this.state = state;
-        this.type = type;
-        this.author = author; */
      }
   }
-  /* const picknick1 = new FantasticBook(
-    "Аркадий и Борис Стругацкие",
-    "Пикник на обочине",
-    1972,
-    168
-  );
-  
-  console.log(picknick1.author); //"Аркадий и Борис Стругацкие"
-  picknick1.state = 10;
-  console.log(picknick1.state); //10
-  picknick1.fix();
-  console.log(picknick1.state); //15 */
 
   class Library {
       constructor(name,books=[]) {
@@ -161,9 +99,9 @@ class PrintEditionItem {
         }
     }
 
- const library = new Library("Библиотека имени Ленина");
+ const library1 = new Library("Библиотека имени Ленина");
 
-library.addBook(
+library1.addBook(
   new DetectiveBook(
     "Артур Конан Дойл",
     "Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе",
@@ -171,7 +109,7 @@ library.addBook(
     1008
   )
 );
-library.addBook(
+library1.addBook(
   new FantasticBook(
     "Аркадий и Борис Стругацкие",
     "Пикник на обочине",
@@ -179,12 +117,12 @@ library.addBook(
     168
   )
 );
-library.addBook(new NovelBook("Герберт Уэллс", "Машина времени", 1895, 138));
-library.addBook(new Magazine("Мурзилка", 1924, 60));
+library1.addBook(new NovelBook("Герберт Уэллс", "Машина времени", 1895, 138));
+library1.addBook(new Magazine("Мурзилка", 1924, 60));
+/* 
+console.log(library1.findBookBy("name", "Пикник на обочине")); //null
+console.log(library1.findBookBy("releaseDate", 1924).name); //"Мурзилка"
 
-console.log(library.findBookBy("name", "Пикник на обочине")); //null
-console.log(library.findBookBy("releaseDate", 1924).name); //"Мурзилка"
-
-console.log("Количество книг до выдачи: " + library.books.length); //Количество книг до выдачи: 4
-library.giveBookByName("Машина времени");
-console.log("Количество книг после выдачи: " + library.books.length); //Количество книг после выдачи: 3
+console.log("Количество книг до выдачи: " + library1.books.length); //Количество книг до выдачи: 4
+library1.giveBookByName("Машина времени");
+console.log("Количество книг после выдачи: " + library1.books.length); //Количество книг после выдачи: 3 */
